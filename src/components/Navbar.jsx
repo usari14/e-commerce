@@ -3,13 +3,18 @@ import { CiSearch } from "react-icons/ci";
 import { FaHeartCircleCheck } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
+import { useCart } from "../Context/CartContext";
+import { Link } from "react-router-dom";
 
 
 
 
 const Navbar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [openDropdownIndex, setOpenDropdownIndex] = useState(null); // State to track open dropdown
+    const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+
+    const {cartItems} = useCart();
+    // console.log('cartItems', cartItems)
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -20,8 +25,10 @@ const Navbar = () => {
     };
 
     const toggleDropdown = (index) => {
-        setOpenDropdownIndex(openDropdownIndex === index ? null : index); // Toggle dropdown visibility
+        setOpenDropdownIndex(openDropdownIndex === index ? null : index);
     };
+
+
 
     return (
         <>
@@ -66,8 +73,6 @@ const Navbar = () => {
                             c-1.293,2.365-1.951,5.158-1.729,8.408c0.209,3.053,1.191,5.496,2.619,7.508c2.842,4.004,7.385,6.973,13.656,6.377
                             c5.976-0.568,9.574-3.936,11.816-8.354c-0.141-0.271-0.221-0.604-0.336-0.902C92.929,31.364,90.843,30.485,88.812,29.55z"></path>
                         </svg>
-                        {/* <h1 className="text-4xl font-bold m-0">Electro<span className="text-yellow-500">.</span></h1> */}
-                        {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Brand</span> */}
                     </a>
                     <form className="items-center hidden md:flex">
                         <input type="text" placeholder="Search any Product here..."
@@ -180,17 +185,15 @@ const Navbar = () => {
                             <li><a href="#"><FaHeartCircleCheck className="" /></a></li>
                             <li><a href="#"><CiUser /></a></li>
                             <li className="relative">
-                                <a href="#" className="flex items-center">
+                                <Link to="/cart" className="flex items-center">
                                     <BsCart className="text-2xl" />
                                     <p className="absolute bottom-0 -right-2 bg-red-500 text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
-                                        3 {/* Replace this with your cart item count dynamically */}
+                                        {cartItems.length}
                                     </p>
-                                </a>
+                                </Link>
                             </li>
-
                         </ul>
                     </div>
-                    {/* Overlay */}
                     <div
                         id="overlay"
                         className={`fixed inset-0 bg-black bg-opacity-50 ${isSidebarOpen ? '' : 'hidden'} xxl:hidden z-20 backdrop-blur-sm transition-opacity duration-300 ease-in-out`}

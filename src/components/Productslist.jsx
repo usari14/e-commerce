@@ -1,17 +1,18 @@
 // import React from 'react'
 
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 // import {products, laptops} from "../dataset/Dataset"
 
 const Productslist = ({ heading, products, ptop }) => {
-    console.log('ptop', ptop)
+    // console.log('ptop', ptop)
 
     useEffect(() => {
         $(".product-carousel").owlCarousel({
             loop: true,
             margin: -20,
-            nav: true,
-            dots: true,
+            nav: false,
+            dots: false,
             navText: false,
             // autoplay: true,
             // autoplaySpeed: 3000,
@@ -38,15 +39,16 @@ const Productslist = ({ heading, products, ptop }) => {
     return (
         <>
             <div className="">
-                <div className={`container mx-auto border-b pt-${ptop} border-gray-400 px-3 lg:px-0`}>
+                <div className={`container mx-auto border-b pt-10 md:pt-${ptop} border-gray-400 px-3 lg:px-0`}>
                     <h2 className="text-2xl md:text-4xl font-extralight leading-snug border-b-4 border-darkyellow inline-block pb-3">{heading}</h2>
                 </div>
                 <div className="owl-carousel product-carousel container mx-auto pt-6">
                     {products.map((item, index) => (
                         <div key={index} className="p-4">
                             {/* Clickable Card */}
-                            <a
-                                href="#"
+                            <Link
+                                to="/productdetail"
+                                state={{ product: item }}
                                 className=" group relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 ease-in-out flex flex-col min-h-[350px] md:min-h-[350px]"
                             >
                                 {/* Wishlist Heart */}
@@ -88,7 +90,7 @@ const Productslist = ({ heading, products, ptop }) => {
                                         </span>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                     ))}
                 </div>
